@@ -5,6 +5,7 @@ from app.api.user import router as user_router
 from app.api.root import router as root_router
 from app.database.database import engine
 from app.database.base import Base
+from app.api import message
 
 # Import all models here
 from app.models.user import User
@@ -19,3 +20,4 @@ app.include_router(root_router)
 app.include_router(auth_router)
 app.include_router(user_router)
 app.include_router(chat.router)
+app.include_router(message.router)
