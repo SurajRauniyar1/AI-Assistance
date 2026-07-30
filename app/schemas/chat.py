@@ -1,9 +1,16 @@
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class ChatCreate(BaseModel):
     title: str
+
+
+class ChatUpdate(BaseModel):
+    title: str = Field(
+        min_length=1,
+        max_length=100
+    )
 
 
 class ChatResponse(BaseModel):

@@ -27,3 +27,15 @@ class MessageRepository:
             .order_by(Message.created_at.asc())
             .all()
         )
+    @staticmethod
+    def get_messages_for_ai(db: Session, chat_id: int, limit: int = 20):
+        messages = (
+            db.query(Message)
+            .filter(Message.chat_id == chat_id)
+            .order_by(Message.created_at.desc())
+            .limit(limit)
+            .all()
+    )
+
+    # Reverse so messages are oldest → newest
+        return list(reversed(messages))

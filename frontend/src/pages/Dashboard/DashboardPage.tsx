@@ -1,20 +1,30 @@
+import Sidebar from "../../components/Sidebar/Sidebar";
+import ChatWindow from "../../components/chat/ChatWindow";
+import DocumentPanel from "../../components/documents/DocumentPanel";
+
 const DashboardPage = () => {
   return (
-    <div className="flex h-screen bg-gray-950 text-white">
-      {/* Sidebar */}
-      <aside className="w-72 border-r border-gray-800">
-        Sidebar
-      </aside>
+    <div className="h-screen bg-[#0B1120] text-white">
+      <div className="flex h-full overflow-hidden">
 
-      {/* Chat */}
-      <main className="flex flex-1 items-center justify-center">
-        Chat Window
-      </main>
+        {/* Sidebar */}
+        <aside className="w-[280px] border-r border-gray-800 bg-[#111827]">
+          <Sidebar />
+        </aside>
 
-      {/* Documents */}
-      <aside className="w-80 border-l border-gray-800">
-        Documents
-      </aside>
+        {/* Chat */}
+        <main className="flex flex-1 justify-center bg-[#0B1120]">
+          <div className="w-full max-w-5xl border-x border-gray-800">
+            <ChatWindow />
+          </div>
+        </main>
+
+        {/* Documents */}
+        <aside className="w-[320px] border-l border-gray-800 bg-[#111827]">
+          <DocumentPanel />
+        </aside>
+
+      </div>
     </div>
   );
 };

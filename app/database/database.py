@@ -10,11 +10,21 @@ load_dotenv()
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 
+if not DATABASE_URL:
+    raise ValueError("DATABASE_URL environment variable is not set.")
+
+# --------------------------------------------------
+# SQLAlchemy Engine
+# --------------------------------------------------
 engine = create_engine(
     DATABASE_URL,
-    echo=True,
+    pool_pre_ping=True,
+    echo=False,  # Set True only for debugging
 )
 
+# --------------------------------------------------
+# Session Factory
+# --------------------------------------------------
 SessionLocal = sessionmaker(
     autocommit=False,
     autoflush=False,
@@ -22,6 +32,9 @@ SessionLocal = sessionmaker(
 )
 
 
+# --------------------------------------------------
+# Database Dependency
+# --------------------------------------------------
 def get_db():
     db = SessionLocal()
     try:

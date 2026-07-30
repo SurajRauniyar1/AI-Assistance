@@ -3,7 +3,11 @@ from sqlalchemy.orm import Session
 from typing import List
 
 from app.database.database import get_db
-from app.schemas.chat import ChatCreate, ChatResponse
+from app.schemas.chat import (
+    ChatCreate,
+    ChatUpdate,
+    ChatResponse,
+)
 from app.services.chat_service import ChatService
 from app.auth.dependencies import get_current_user
 from app.models.user import User
@@ -34,6 +38,21 @@ def list_chats(
 ):
     return ChatService.get_user_chats(
         db=db,
+        user_id=current_user.id
+    )
+
+
+@router.patch("/{chat_id}", response_model=ChatResponse)
+def rename_chat(
+    chat_id: int,
+    chat: ChatUpdate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    return ChatService.rename_chat(
+        db=db,
+        chat_id=chat_id,
+        title=chat.title,
         user_id=current_user.id
     )
 

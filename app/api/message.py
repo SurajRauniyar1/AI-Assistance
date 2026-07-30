@@ -30,6 +30,22 @@ def send_message(
     )
 
 
+# NEW STREAMING ENDPOINT
+@router.post("/stream/{chat_id}")
+def stream_message(
+    chat_id: int,
+    message: MessageCreate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    return MessageService.stream_message(
+        db=db,
+        chat_id=chat_id,
+        user_id=current_user.id,
+        content=message.content
+    )
+
+
 @router.get("/history/{chat_id}", response_model=List[MessageResponse])
 def get_chat_history(
     chat_id: int,
